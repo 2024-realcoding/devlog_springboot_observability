@@ -60,7 +60,7 @@ services:
   # Applications
   realcoding-a:
 #    image: ghcr.io/2024-realcoding/devlog_springboot_testing:latest
-    image: realcoding:m1
+    image: ghcr.io/2024-realcoding/realcoding:m1
     environment:
       - TARGET_ONE_HOST=realcoding-b
       - TARGET_TWO_HOST=realcoding-c
