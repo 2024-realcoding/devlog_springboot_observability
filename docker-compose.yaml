@@ -58,78 +58,77 @@ services:
     logging: *default-logging
 
   # Applications
-  realcoding-a:
-#    image: ghcr.io/2024-realcoding/devlog_springboot_testing:latest
-    image: ghcr.io/2024-realcoding/realcoding:m1
+  app-realcoding-a:
+    image: realcoding:m1
+#    image: ghcr.io/2024-realcoding/realcoding:m1
     environment:
-      - TARGET_ONE_HOST=realcoding-b
-      - TARGET_TWO_HOST=realcoding-c
+      - spring.profiles.active=dev
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4317 # send traces to Tempo
-      - OTEL_SERVICE_NAME=realcoding-a # service name for Span
-      - OTEL_RESOURCE_ATTRIBUTES=compose_service=realcoding-a # add custom resource attribute to Span for Grafana Trace to Logs feature
+      - OTEL_SERVICE_NAME=app-realcoding-a # service name for Span
+      - OTEL_RESOURCE_ATTRIBUTES=compose_service=app-realcoding-a # add custom resource attribute to Span for Grafana Trace to Logs feature
       - OTEL_METRICS_EXPORTER=none # disable metrics exporter
-      - MANAGEMENT_METRICS_TAGS_APPLICATION=realcoding-a # override default value of management.metrics.tags.application in app/src/main/resources/application.properties
+      - MANAGEMENT_METRICS_TAGS_APPLICATION=app-realcoding-a # override default value of management.metrics.tags.application in app/src/main/resources/application.properties
     ports:
       - "8090:8090"
     logging: *default-logging
 
-  app-a:
-    # build: ./app/
-    image: ghcr.io/blueswen/spring-boot-observability/app:latest
-    environment:
-      - TARGET_ONE_HOST=app-b
-      - TARGET_TWO_HOST=app-c
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4317 # send traces to Tempo
-      - OTEL_SERVICE_NAME=app-a # service name for Span
-      - OTEL_RESOURCE_ATTRIBUTES=compose_service=app-a # add custom resource attribute to Span for Grafana Trace to Logs feature
-      - OTEL_METRICS_EXPORTER=none # disable metrics exporter
-      - MANAGEMENT_METRICS_TAGS_APPLICATION=app-a # override default value of management.metrics.tags.application in app/src/main/resources/application.properties
-    ports:
-      - "8080:8080"
-    logging: *default-logging
-
-  app-b:
-    # build: ./app/
-    image: ghcr.io/blueswen/spring-boot-observability/app:latest
-    environment:
-      - TARGET_ONE_HOST=app-b
-      - TARGET_TWO_HOST=app-c
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4317
-      - OTEL_SERVICE_NAME=app-b
-      - OTEL_RESOURCE_ATTRIBUTES=compose_service=app-b
-      - OTEL_METRICS_EXPORTER=none
-      - MANAGEMENT_METRICS_TAGS_APPLICATION=app-b
-    ports:
-      - "8081:8080"
-    logging: *default-logging
-
-  app-c:
-    # build: ./app/
-    image: ghcr.io/blueswen/spring-boot-observability/app:latest
-    environment:
-      - TARGET_ONE_HOST=app-b
-      - TARGET_TWO_HOST=app-c
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4317
-      - OTEL_SERVICE_NAME=app-c
-      - OTEL_RESOURCE_ATTRIBUTES=compose_service=app-c
-      - OTEL_METRICS_EXPORTER=none
-      - MANAGEMENT_METRICS_TAGS_APPLICATION=app-c
-    ports:
-      - "8082:8080"
-    logging: *default-logging
-
-  postgres:
-    image: postgres:16.0
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
-    ports:
-      - "5432:5432"
-    logging: *default-logging
-
-  redis:
-    image: redis:7.2.2
-    ports:
-      - "6379:6379"
-    logging: *default-logging
+#  app-a:
+#    # build: ./app/
+#    image: ghcr.io/blueswen/spring-boot-observability/app:latest
+#    environment:
+#      - TARGET_ONE_HOST=app-b
+#      - TARGET_TWO_HOST=app-c
+#      - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4317 # send traces to Tempo
+#      - OTEL_SERVICE_NAME=app-a # service name for Span
+#      - OTEL_RESOURCE_ATTRIBUTES=compose_service=app-a # add custom resource attribute to Span for Grafana Trace to Logs feature
+#      - OTEL_METRICS_EXPORTER=none # disable metrics exporter
+#      - MANAGEMENT_METRICS_TAGS_APPLICATION=app-a # override default value of management.metrics.tags.application in app/src/main/resources/application.properties
+#    ports:
+#      - "8080:8080"
+#    logging: *default-logging
+#
+#  app-b:
+#    # build: ./app/
+#    image: ghcr.io/blueswen/spring-boot-observability/app:latest
+#    environment:
+#      - TARGET_ONE_HOST=app-b
+#      - TARGET_TWO_HOST=app-c
+#      - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4317
+#      - OTEL_SERVICE_NAME=app-b
+#      - OTEL_RESOURCE_ATTRIBUTES=compose_service=app-b
+#      - OTEL_METRICS_EXPORTER=none
+#      - MANAGEMENT_METRICS_TAGS_APPLICATION=app-b
+#    ports:
+#      - "8081:8080"
+#    logging: *default-logging
+#
+#  app-c:
+#    # build: ./app/
+#    image: ghcr.io/blueswen/spring-boot-observability/app:latest
+#    environment:
+#      - TARGET_ONE_HOST=app-b
+#      - TARGET_TWO_HOST=app-c
+#      - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4317
+#      - OTEL_SERVICE_NAME=app-c
+#      - OTEL_RESOURCE_ATTRIBUTES=compose_service=app-c
+#      - OTEL_METRICS_EXPORTER=none
+#      - MANAGEMENT_METRICS_TAGS_APPLICATION=app-c
+#    ports:
+#      - "8082:8080"
+#    logging: *default-logging
+#
+#  postgres:
+#    image: postgres:16.0
+#    environment:
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_PASSWORD=postgres
+#      - POSTGRES_DB=postgres
+#    ports:
+#      - "5432:5432"
+#    logging: *default-logging
+#
+#  redis:
+#    image: redis:7.2.2
+#    ports:
+#      - "6379:6379"
+#    logging: *default-logging
