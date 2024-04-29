@@ -56,8 +56,9 @@ services:
 
   # Applications
   app-realcoding-a:
-    image: realcoding:m1
+#    image: realcoding:m1
 #    image: ghcr.io/2024-realcoding/realcoding:m1
+    image: ghcr.io/2024-realcoding/realcoding:m1-20240429
     environment:
       - spring.profiles.active=dev
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4317 # send traces to Tempo
@@ -66,7 +67,7 @@ services:
       - OTEL_METRICS_EXPORTER=none # disable metrics exporter
       - MANAGEMENT_METRICS_TAGS_APPLICATION=app-realcoding-a # override default value of management.metrics.tags.application in app/src/main/resources/application.properties
     ports:
-      - "8090:8090"
+      - "8080:8080"
     logging: *default-logging
 
 #  app-a:
