@@ -57,7 +57,7 @@ services:
   # Applications
   app-realcoding-a:
 #    image: realcoding:m1
-    image: ghcr.io/2024-realcoding/realcoding:m1
+    image: ghcr.io/2024-realcoding/realcoding:m1-20240429
     environment:
       - spring.profiles.active=dev
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4317 # send traces to Tempo
