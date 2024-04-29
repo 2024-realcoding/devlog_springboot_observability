@@ -34,7 +34,7 @@ scrape_configs:
     metrics_path: "/actuator/prometheus"
 
     static_configs:
-      - targets: [ 'app-realcoding-a:8090' ]
+      - targets: [ 'app-realcoding-a:8080' ]
 
 #  - job_name: 'app-a'
 #
